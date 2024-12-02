@@ -1,0 +1,67 @@
+<div class="bg-gray-900 rounded-xl p-3 md:p-4 lg:p-6 shadow-lg w-full mx-auto">
+  <!-- Header Section with improved mobile layout -->
+  <div class="flex flex-col xs:flex-row justify-between items-start xs:items-center gap-3 md:gap-4 mb-4 md:mb-6">
+    <h2 class="text-base xs:text-lg md:text-xl font-semibold text-white">Transaction History</h2>
+
+    <!-- Period Selector with better mobile experience -->
+    <div class="flex w-full xs:w-auto space-x-1.5 md:space-x-2 bg-gray-800 rounded-lg p-1">
+      @for (p of periods; track p) {
+        <button
+          (click)="setPeriod(p)"
+          [class]="'flex-1 xs:flex-none min-w-[60px] px-2 xs:px-3 md:px-4 py-1.5 text-[11px] xs:text-xs md:text-sm font-medium rounded-md transition-all ' +
+                (selectedPeriod === p ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white')"
+        >
+          {{p | titlecase}}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Transactions List with adaptive height -->
+  <div class="space-y-2 xs:space-y-3 md:space-y-4 max-h-[calc(100vh-280px)] xs:max-h-[460px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800 pr-2">
+    @for (transaction of transactions; track transaction.id) {
+      <div class="group flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-3 md:gap-4 p-2.5 xs:p-3 md:p-4 bg-gray-800 rounded-lg hover:bg-gray-750 transition-all">
+        <!-- Status Icon with responsive sizing -->
+        <div [class]="'flex-shrink-0 w-7 xs:w-8 md:w-10 h-7 xs:h-8 md:h-10 flex items-center justify-center rounded-full ' +
+             getStatusStyles(transaction.status).bg">
+          <div [innerHTML]="getStatusIcon(transaction.status)" class="w-3.5 xs:w-4 md:w-5 h-3.5 xs:h-4 md:h-5"></div>
+        </div>
+
+        <!-- Transaction Details with improved mobile layout -->
+        <div class="flex-grow w-full xs:w-auto min-w-0">
+          <!-- Top Row -->
+          <div class="flex flex-row justify-between items-start xs:items-center gap-2">
+            <span class="text-xs xs:text-sm md:text-base text-gray-100 font-medium truncate">
+              {{ formatTransactionTitle(transaction) }}
+            </span>
+            <span [class]="'text-xs xs:text-sm md:text-base font-semibold whitespace-nowrap ' +
+                   getStatusStyles(transaction.status).text">
+              {{ formatAmount(transaction) }}
+            </span>
+          </div>
+
+          <!-- Bottom Row -->
+          <div class="flex justify-between items-center mt-1 xs:mt-0.5 md:mt-1">
+            <span class="text-[10px] xs:text-xs md:text-sm text-gray-400">
+              {{ transaction.date | date:'MMM d, y, h:mm a' }}
+            </span>
+            <span [class]="'text-[10px] xs:text-xs md:text-sm ' +
+                   getStatusStyles(transaction.status).text">
+              {{ transaction.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- View All Link with touch-friendly target -->
+  <div class="mt-3 xs:mt-4 md:mt-6 text-center">
+    <a href="#" class="inline-flex items-center justify-center text-xs md:text-sm font-medium text-blue-500 hover:text-blue-400 transition-colors py-2">
+      View all transactions
+      <svg class="w-3 md:w-4 h-3 md:h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </a>
+  </div>
+</div>

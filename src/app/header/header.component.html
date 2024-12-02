@@ -1,0 +1,113 @@
+<!-- header.component.html -->
+<nav class="fixed top-0 w-full bg-white dark:bg-gray-800 shadow-sm z-50 transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center space-x-4">
+        <!-- Mobile menu button -->
+        <button
+          class="lg:hidden text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
+          (click)="toggleMobileMenu()">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+
+        <img src="assets/logo.png" alt="Logo" class="h-8 w-auto"/>
+
+        <div class="hidden md:block">
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Search in pages..."
+              class="w-64 pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600
+                         bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100
+                         focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"/>
+            <div class="absolute left-3 top-2.5 text-gray-400 dark:text-gray-500">
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <!-- Theme Toggle -->
+        <button
+          (click)="onThemeToggle()"
+          class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+          <svg class="h-6 w-6 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+          <svg class="h-6 w-6 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
+          </svg>
+        </button>
+
+        <div class="relative">
+          <button
+            (click)="toggleNotifications()"
+            class="p-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <span class="sr-only">View notifications</span>
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <!-- Notification badge -->
+            <div *ngIf="unreadNotifications > 0"
+                 class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2
+                            bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+              {{ unreadNotifications }}
+            </div>
+          </button>
+
+          <!-- Notifications dropdown -->
+          <div *ngIf="showNotifications()"
+               class="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-lg shadow-lg
+                          border border-gray-200 dark:border-gray-700">
+            <!-- Notifications content -->
+            <div class="p-4 text-sm text-gray-600 dark:text-gray-300">
+              No new notifications
+            </div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <img
+            src="assets/user.jpg"
+            alt="User avatar"
+            (click)="toggleUserMenu()"
+            class="h-8 w-8 rounded-full object-cover cursor-pointer
+                       ring-2 ring-white dark:ring-gray-700"/>
+
+          <!-- User menu dropdown -->
+          <div *ngIf="showUserMenu()"
+               class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg
+                          border border-gray-200 dark:border-gray-700">
+            <ul class="py-1">
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  Profile
+                </a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  Settings
+                </a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

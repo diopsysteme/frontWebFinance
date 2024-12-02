@@ -1,0 +1,63 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Connexion</h2>
+    <p class="subtitle">{{ !showVerificationField ? 'Entrez votre numéro de téléphone' : 'Entrez le code reçu' }}</p>
+
+    <form [formGroup]="phoneVerificationForm" class="auth-form">
+      <!-- Champ téléphone -->
+      <div class="form-group" [class.fade-out]="showVerificationField">
+        <i class="material-icons">phone</i>
+        <input
+          type="tel"
+          formControlName="phoneNumber"
+          placeholder="Numéro de téléphone"
+          [readonly]="showVerificationField"
+        >
+        <div *ngIf="phoneVerificationForm.get('phoneNumber')?.touched &&
+                    phoneVerificationForm.get('phoneNumber')?.errors?.['required']"
+             class="error-message">
+          Numéro de téléphone requis
+        </div>
+        <div *ngIf="phoneVerificationForm.get('phoneNumber')?.touched &&
+                    phoneVerificationForm.get('phoneNumber')?.errors?.['pattern']"
+             class="error-message">
+          Numéro de téléphone invalide
+        </div>
+      </div>
+
+      <!-- Champ code de vérification -->
+      <div *ngIf="showVerificationField" class="form-group fade-in">
+        <i class="material-icons">lock_outline</i>
+        <input
+          type="text"
+          formControlName="verificationCode"
+          placeholder="Code de vérification"
+          maxlength="6"
+        >
+        <div *ngIf="phoneVerificationForm.get('verificationCode')?.touched &&
+                    phoneVerificationForm.get('verificationCode')?.errors?.['required']"
+             class="error-message">
+          Code de vérification requis
+        </div>
+      </div>
+
+      <!-- Message d'erreur -->
+      <div *ngIf="error" class="error-alert fade-in">
+        {{ error }}
+      </div>
+
+      <!-- Bouton de soumission -->
+      <button
+        (click)="showVerificationField ? onSubmitVerification() : onSubmitPhone()"
+        [disabled]="loading || phoneVerificationForm.invalid"
+        class="submit-button"
+      >
+        <span *ngIf="loading" class="loader"></span>
+        <span *ngIf="!loading" class="button-content">
+          {{ !showVerificationField ? 'Recevoir le code' : 'Vérifier' }}
+          <i class="material-icons">arrow_forward</i>
+        </span>
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+@media (max-width: 800px) {
+  /* Base layout changes for mobile */
+  .flex.flex-col {
+    position: fixed;
+  }
+
+  /* Mobile navigation at bottom */
+  app-sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 50;
+  }
+
+  /* Hide right sidebar on mobile */
+  app-right-side {
+    display: none;
+  }
+
+  /* Adjust main content layout */
+  .flex.flex-1.overflow-auto {
+    flex-direction: column;
+    padding-bottom: 60px; /* Space for bottom navigation */
+  }
+}
